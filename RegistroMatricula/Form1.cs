@@ -48,18 +48,14 @@ namespace RegistroMatricula
                 this.cmbSexo.Focus();
             }
             //convertir a enteros
-            if(!(int.TryParse(this.txtMatricula.Text, out int matricula)))
-            {
-                MessageBox.Show("La Matricula ingresada no es valida ....");
-                this.txtMatricula.Focus();
-            }
+            
             if (!(int.TryParse(this.txtEdad.Text, out int Edad)))
             {
                 MessageBox.Show("La Edad ingresada no es valida ....");
                 this.txtEdad.Focus();
             }
             MatriculasDAO Matriculas = new MatriculasDAO();
-            Matriculas.matricula = matricula;
+            Matriculas.matricula = this.txtMatricula.Text;
             Matriculas.apellidos = this.txtApellido.Text;
             Matriculas.nombres = this.txtNombre.Text;
             Matriculas.edad = Edad;
@@ -71,15 +67,30 @@ namespace RegistroMatricula
             this.gridEstudiantes.DataSource = null;
             this.gridEstudiantes.DataSource = lista;
 
+
+            //agregar lista 
+            ListViewItem listas = new ListViewItem(txtMatricula.Text);
+            listas.SubItems.Add(txtApellido.Text);
+            listas.SubItems.Add(txtNombre.Text);
+            listas.SubItems.Add(txtEdad.Text);
+            listas.SubItems.Add(cmbSexo.Text);
+            listView1.Items.Add(listas);
+
+
+
             txtMatricula.Text = "";
             txtApellido.Text = "";
             txtNombre.Text = "";
             txtEdad.Text = "";
             cmbSexo.Text = "";
 
+        }
 
-
-
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            //filtrar datos por matriculas
+            this.gridEstudiantes.DataSource = null;
+            this.gridEstudiantes.DataSource = lista.Where(data => data.matricula == this.txtMatricula.Text).ToString();
         }
     }
 }

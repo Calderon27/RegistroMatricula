@@ -8,7 +8,7 @@ namespace RegistroMatricula.Clases
 {
     public class MatriculasDAO
     {
-        public int  matricula { get; set; }
+        public string  matricula { get; set; }
         public string apellidos { get; set; }
         public string nombres { get; set; }
         public int edad { get; set; }
