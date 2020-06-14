@@ -90,7 +90,12 @@ namespace RegistroMatricula
         {
             //filtrar datos por matriculas
             this.gridEstudiantes.DataSource = null;
-            this.gridEstudiantes.DataSource = lista.Where(data => data.matricula == this.txtMatricula.Text).ToString();
+            this.gridEstudiantes.DataSource = lista.Where(data => data.matricula.ToString() == this.txtFiltraMatricula.Text).ToList();
+
+            // Calcular la mayor edad y la menor edad
+            this.txtEdadMayor.Text = lista.Max(data => data.edad).ToString();
+            this.txtEdadMenor.Text = lista.Min(data => data.edad).ToString();
+
         }
     }
 }
